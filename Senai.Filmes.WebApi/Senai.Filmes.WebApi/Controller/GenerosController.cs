@@ -5,17 +5,22 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Senai.Filmes.WebApi.Domain;
+using Senai.Filmes.WebApi.Repository;
 
 namespace Senai.Filmes.WebApi.Controller
 {
     [Route("api/[controller]")]
-    [Produces("application/json")]
     [ApiController]
     public class GenerosController : ControllerBase
     {
-        List<GenerosDomain> Generos = new List<GenerosDomain>
-        {
+        GeneroRepository GeneroRepository = new GeneroRepository();
 
+        [HttpGet]
+        
+        public IEnumerable<GenerosDomain> Listar()
+        {
+            return GeneroRepository.Listar();
         }
+
     }
 }

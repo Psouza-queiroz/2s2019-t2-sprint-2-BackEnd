@@ -8,6 +8,6 @@ namespace Senai.Filmes.WebApi.Domain
     public class GenerosDomain
     {
         public int IdGeneros { get; set; }
-        public int Nome { get; set; }
+        public String Nome { get; set; }
     }
 }
