@@ -10,6 +10,7 @@ using Senai.Filmes.WebApi.Repository;
 namespace Senai.Filmes.WebApi.Controller
 {
     [Route("api/[controller]")]
+    [Produces("application/json")]
     [ApiController]
     public class GenerosController : ControllerBase
     {
@@ -21,6 +22,20 @@ namespace Senai.Filmes.WebApi.Controller
         {
             return GeneroRepository.Listar();
         }
+
+        [HttpPost]
+        public IActionResult Cadastrar(GenerosDomain generos)
+        {
+            GeneroRepository.Cadastrar(generos);
+            return Ok();
+        }
+        [HttpGet("{Id}")]
+
+        public IActionResult BuscarPorId(int id)
+        {
+            GenerosDomain generosDomain = GeneroRepository.BuscarPorId(id);
+
+
 
     }
 }

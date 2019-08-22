@@ -62,7 +62,7 @@ namespace Senai.Sstop.WebApi.Repositories
                 con.Open();
                 SqlDataReader sdr;
 
-                using (SqlCommand cmd = new SqlCommand(Query, con))
+                using (SqlCommand cmd = new SqlCommand(Query, con))     
                 {
                     cmd.Parameters.AddWithValue("@IdEstilos", id);
                     sdr = cmd.ExecuteReader();
