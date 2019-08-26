@@ -17,7 +17,7 @@ namespace Senai.Filmes.WebApi.Controller
         GeneroRepository GeneroRepository = new GeneroRepository();
 
         [HttpGet]
-        
+
         public IEnumerable<GenerosDomain> Listar()
         {
             return GeneroRepository.Listar();
@@ -34,8 +34,23 @@ namespace Senai.Filmes.WebApi.Controller
         public IActionResult BuscarPorId(int id)
         {
             GenerosDomain generosDomain = GeneroRepository.BuscarPorId(id);
+            if (generosDomain == null)
+            
+                return NotFound();
+                return Ok(generosDomain);
+        }
 
-
-
+        [HttpPut]
+        public IActionResult Atualizar (GenerosDomain generos)
+        {
+            GeneroRepository.Atualizar(generos);
+            return Ok();
+        }
+        [HttpDelete("{Id}")]
+        public IActionResult Deletar(int id)
+        {
+            GeneroRepository.Deletar(id);
+            return Ok();
+        }
     }
 }

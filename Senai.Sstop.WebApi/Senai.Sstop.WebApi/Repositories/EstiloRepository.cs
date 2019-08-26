@@ -11,7 +11,7 @@ namespace Senai.Sstop.WebApi.Repositories
     {
 
         // aonde que será feita essa comunicação
-         private string StringConexao = "Data Source=.\\SqlExpress;Initial Catalog=T_SStop;User Id=sa;Pwd=132;";
+         private string StringConexao = "Data Source=.\\SqlExpress;Initial Catalog=T_BookStore;User Id=sa;Pwd=132;";
         //private string StringConexao = "Data Source=localhost;Initial Catalog=T_SStop;Integrated Security=true;";
 
         public List<EstiloDomain> Listar()

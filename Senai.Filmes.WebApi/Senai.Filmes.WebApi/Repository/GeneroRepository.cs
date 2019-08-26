@@ -57,40 +57,68 @@ namespace Senai.Filmes.WebApi.Repository
                 }
             }
         }
-
-        public GenerosDomain BuscarPorId(int id)
+         
+       public GenerosDomain BuscarPorId(int id)
         {
-            string Query = "SELECT IdGenero, Nome from Generos WHERE = @Id";
-
+            string Query = "SELECT IdGenero, Nome FROM Generos WHERE IdGenero = @Id";
 
             using (SqlConnection con = new SqlConnection(StringConexao))
             {
-
                 con.Open();
                 SqlDataReader sdr;
-                
+
                 using (SqlCommand cmd = new SqlCommand(Query, con))
                 {
-                    cmd.Parameters.AddWithValue("@Id", id);
-                    cmd.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue("Id", id);
                     sdr = cmd.ExecuteReader();
-                    if (sdr.HasRows)
+
+                    if(sdr.HasRows)
                     {
-                        while (sdr.Read())
+                        while(sdr.Read())
                         {
-                            GenerosDomain generos = new GenerosDomain()
+                            GenerosDomain generos = new GenerosDomain
                             {
-                                IdGeneros = Convert.ToInt32(sdr["Id"]),
+                                IdGeneros = Convert.ToInt32(sdr["IdGenero"]),
                                 Nome = sdr["Nome"].ToString()
                             };
-                return generos;
-                        
+                            return generos;                     
                         }
                     }
                     return null;
                 }
             }
-            
+        }
+
+        public void Atualizar(GenerosDomain generos)
+        {
+            string Query = "UPDATE Generos SET Nome = @Nome WHERE IdGenero = @Id ";
+
+            using (SqlConnection con = new SqlConnection(StringConexao))
+            {
+                SqlCommand cmd = new SqlCommand(Query, con);
+                cmd.Parameters.AddWithValue("@Nome", generos.Nome);
+
+                cmd.Parameters.AddWithValue("@Id", generos.IdGeneros);
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+
+            }
+        }
+
+                public void Deletar(int id)
+        {
+            string Query = "DELETE FROM Generos WHERE IdGenero = @Id";
+            using (SqlConnection con = new SqlConnection(StringConexao))
+            {
+                using (SqlCommand cmd = new SqlCommand(Query, con))
+                {
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                       
+                }
+            }
         }
         
      }

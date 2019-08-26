@@ -11,7 +11,7 @@ namespace Senai.Sstop.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [Produces("application/json")]
-    [ApiController]
+    [ApiController] 
     public class EstilosController : ControllerBase
     {
 
