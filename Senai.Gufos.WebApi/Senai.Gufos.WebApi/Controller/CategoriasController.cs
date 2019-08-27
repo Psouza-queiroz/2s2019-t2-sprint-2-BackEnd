@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Senai.Gufos.WebApi.Domains;
@@ -15,28 +16,31 @@ namespace Senai.Gufos.WebApi.Controller
     public class CategoriasController : ControllerBase
     {
         CategoriaRepository CategoriaRepository = new CategoriaRepository();
+        [Authorize]
         [HttpGet]
-
+      
         public IActionResult Listar()
         {
             return Ok(CategoriaRepository.Listar());
         }
-        
+
         [HttpPost]
 
         public IActionResult Cadastrar(Categorias categoria)
         {
-            try
-            {
-                CategoriaRepository.Cadastrar(categoria);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { mensagem = "eita, erro: " + ex.Message });
-            }
+                try
+                {
+                    CategoriaRepository.Cadastrar(categoria);
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(new { mensagem = "eita, erro: " + ex.Message });
+                }
         }
-        [HttpGet ("{id}") ]
+        [Authorize(Roles = "Administrador")]
+        [HttpGet("{id}")]
+        
         public IActionResult BuscarPorId(int id)
         {
             Categorias categorias = CategoriaRepository.BuscarPorId(id);

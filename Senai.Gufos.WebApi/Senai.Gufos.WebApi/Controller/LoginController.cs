@@ -7,25 +7,26 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using Senai.Optus.WebApi.Domains;
-using Senai.Optus.WebApi.Repositories;
-using Senai.Optus.WebApi.ViewModel;
+using Senai.Gufos.WebApi.Domains;
+using Senai.Gufos.WebApi.Repositories;
+using Senai.Gufos.WebApi.ViewModel;
 
-namespace Senai.Optus.WebApi.Controller
+
+namespace Senai.Gufos.WebApi.Controllers
 {
     [Route("api/[controller]")]
-    [Produces ("application/json")]
+    [Produces("application/json")]
     [ApiController]
-    public class UsuariosController : ControllerBase
+    public class LoginController : ControllerBase
     {
-        UsuarioRepository usuarioRepository = new UsuarioRepository();
+        UsuarioRepository UsuarioRepository = new UsuarioRepository();
 
         [HttpPost]
         public IActionResult Login(LoginViewModel login)
         {
             try
             {
-                Usuarios usuarioBuscado = usuarioRepository.BuscarPorEmailESenha(login);
+                Usuarios usuarioBuscado = UsuarioRepository.BuscarPorEmailESenha(login);
                 if (usuarioBuscado == null)
                     return NotFound(new { mensagem = "Email ou Senha Inválidos." });
 
@@ -38,13 +39,13 @@ namespace Senai.Optus.WebApi.Controller
                     new Claim(ClaimTypes.Role, usuarioBuscado.Permissao),
                 };
 
-                var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("optus-chave-autenticacao"));
+                var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("gufos-chave-autenticacao"));
 
                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
                 var token = new JwtSecurityToken(
-                    issuer: "Optus.WebApi",
-                    audience: "optus.WebApi",
+                    issuer: "Gufos.WebApi",
+                    audience: "Gufos.WebApi",
                     claims: claims,
                     expires: DateTime.Now.AddMinutes(30),
                     signingCredentials: creds);
@@ -61,8 +62,3 @@ namespace Senai.Optus.WebApi.Controller
         }
     }
 }
-    
-
-
-        
-        
