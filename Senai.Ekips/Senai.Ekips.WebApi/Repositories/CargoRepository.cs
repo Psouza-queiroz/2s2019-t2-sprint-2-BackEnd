@@ -40,5 +40,12 @@ namespace Senai.Ekips.WebApi.Repositories
                 ctx.SaveChanges();
             }
         }
+        public void Deletar (int id)
+        {
+            using (EkipsContext ctx = new EkipsContext())
+            {
+
+            }
+        }
     }
 }

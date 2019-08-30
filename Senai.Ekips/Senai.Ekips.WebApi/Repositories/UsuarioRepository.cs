@@ -19,5 +19,23 @@ namespace Senai.Ekips.WebApi.Repositories
                 return usuario;
             }
         }
+        public List<Usuarios> Listar()
+        {
+            using (EkipsContext ctx = new EkipsContext())
+            {
+                return ctx.Usuarios.ToList();
+            }
+
+        }
+        public void Deletar(int id)
+        {
+            using (EkipsContext ctx = new EkipsContext())
+            {
+                Usuarios usuarios = ctx.Usuarios.Find(id);
+                ctx.Remove(usuarios);
+                ctx.SaveChanges();
+            }
+        }
+       
     }
 }
