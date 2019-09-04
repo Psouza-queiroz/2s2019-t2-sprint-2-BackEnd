@@ -32,7 +32,13 @@ Nome VARCHAR(255) NOT NULL
 ,IdCargo INT FOREIGN KEY REFERENCES Cargos (IdCargo)
 ,IdUsuario INT FOREIGN KEY REFERENCES Usuarios (IdUsuario)
 );
+insert into Funcionarios ()
 
 alter table Funcionarios add IdFuncionario INT PRIMARY KEY IDENTITY
-SELECT * FROM Funcionarios
+SELECT * FROM funcionarios
+
+
+
+
+
 
