@@ -10,5 +10,6 @@ namespace Senai.AutoPecas.WebApi.Interface
      public interface IUsuariosRepository
     {
         Usuarios Login(LoginViewModel login);
+
     }
 }

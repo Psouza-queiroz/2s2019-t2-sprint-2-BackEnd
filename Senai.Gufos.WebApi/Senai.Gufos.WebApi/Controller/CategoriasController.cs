@@ -72,12 +72,12 @@ namespace Senai.Gufos.WebApi.Controller
         }
            
 
-        [HttpDelete("{id}")]
-        public IActionResult Deletar (int id)
-        {
-            CategoriaRepository.Deletar(id);
-            return Ok();
-        }
+            [HttpDelete("{id}")]
+            public IActionResult Deletar (int id)
+            {
+                CategoriaRepository.Deletar(id);
+                return Ok();
+            }
     }
     
 }
