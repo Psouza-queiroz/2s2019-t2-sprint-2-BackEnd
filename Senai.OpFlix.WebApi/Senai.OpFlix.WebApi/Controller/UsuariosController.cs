@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -66,17 +67,30 @@ namespace Senai.OpFlix.WebApi.Controller
                 return BadRequest(new { mensagem = "Erro ao cadastrar." + ex.Message });
             }
         }
+        [Authorize(Roles = "administrador")]
         [HttpPost]
         public IActionResult Cadastrar (Usuarios usuarios)
         {
             UsuarioRepository.Cadastar(usuarios);
             return Ok();
         }
+
+        [Route("CadastrarAdmin")]
+        [HttpPost]
+        public IActionResult CadastrarAdmin(Usuarios usuarios)
+        {
+            UsuarioRepository.Cadastar(usuarios);
+            return Ok();
+        }
+
+
+        [Authorize(Roles = "administrador")]
         [HttpGet]
         public IActionResult Listar()
         {
             return Ok(UsuarioRepository.Listar());
         }
+        [Authorize(Roles = "administrador")]
         [HttpDelete("{id}")]
         public IActionResult Deletar(int id)
         {

@@ -24,7 +24,7 @@ namespace Senai.OpFlix.WebApi.Controller
         {
             CategoriaRepository = new CategoriaRepository();
         }
-
+        [Authorize(Roles = "administrador")]
         [HttpGet]
         public IActionResult Listar()
         {
