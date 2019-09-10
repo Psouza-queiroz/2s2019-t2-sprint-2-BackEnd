@@ -67,7 +67,7 @@ namespace Senai.OpFlix.WebApi.Controller
                 return BadRequest(new { mensagem = "Erro ao cadastrar." + ex.Message });
             }
         }
-        [Authorize(Roles = "administrador")]
+        
         [HttpPost]
         public IActionResult Cadastrar (Usuarios usuarios)
         {
