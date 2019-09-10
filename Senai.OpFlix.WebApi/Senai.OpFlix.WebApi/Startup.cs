@@ -46,7 +46,7 @@ namespace Senai.OpFlix.WebApi
      
                     ValidateLifetime = true,
               
-                    IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("OpFlix-chave-autenticacao")),
+                    IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("opflix-chave-autenticacao")),
                   
                     ClockSkew = TimeSpan.FromMinutes(30),
                    

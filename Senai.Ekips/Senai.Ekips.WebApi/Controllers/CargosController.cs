@@ -40,7 +40,7 @@ namespace Senai.Ekips.WebApi.Controllers
         public IActionResult BuscarPorId(int id)
         {
             Cargos cargos = CargoRepository.BuscarPorId(id);
-            if (cargos == null)
+            if (cargos == null) 
                 return null;
             return Ok(cargos);
         }
