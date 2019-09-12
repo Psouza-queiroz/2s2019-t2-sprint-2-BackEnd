@@ -28,45 +28,45 @@ namespace Senai.OpFlix.WebApi.Controller
             UsuarioRepository = new UsuarioRepository();
         }
         [Route("login")]
-        [HttpPost]
-        public IActionResult Login(LoginViewModel login)
-        {
-            try
+            [HttpPost]
+            public IActionResult Login(LoginViewModel login)
             {
-                Usuarios usuarioBuscado = UsuarioRepository.Login(login);
-                if (usuarioBuscado == null)
-                    return NotFound(new { mensagem = "Email ou Senha Inválidos." });
-
-                // informacoes referentes ao usuarios
-                var claims = new[]
-               {
-                    new Claim("chave", "0123456789"),
-                    new Claim(JwtRegisteredClaimNames.Email, usuarioBuscado.Email),
-                    new Claim(JwtRegisteredClaimNames.Jti, usuarioBuscado.IdUsuario.ToString()),
-                    new Claim(ClaimTypes.Role, usuarioBuscado.Permissao),
-                };
-
-                var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("opflix-chave-autenticacao"));
-
-                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-                var token = new JwtSecurityToken(
-                    issuer: "OpFlix.WebApi",
-                    audience: "OpFlix.WebApi",
-                    claims: claims,
-                    expires: DateTime.Now.AddMinutes(30),
-                    signingCredentials: creds);
-
-                return Ok(new
+                try
                 {
-                    token = new JwtSecurityTokenHandler().WriteToken(token)
-                });
+                    Usuarios usuarioBuscado = UsuarioRepository.Login(login);
+                    if (usuarioBuscado == null)
+                        return NotFound(new { mensagem = "Email ou Senha Inválidos." });
+
+                    // informacoes referentes ao usuarios
+                    var claims = new[]
+                   {
+                        new Claim("chave", "0123456789"),
+                        new Claim(JwtRegisteredClaimNames.Email, usuarioBuscado.Email),
+                        new Claim(JwtRegisteredClaimNames.Jti, usuarioBuscado.IdUsuario.ToString()),
+                        new Claim(ClaimTypes.Role, usuarioBuscado.Permissao),
+                    };
+
+                    var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("opflix-chave-autenticacao"));
+
+                    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+                    var token = new JwtSecurityToken(
+                        issuer: "OpFlix.WebApi",
+                        audience: "OpFlix.WebApi",
+                        claims: claims,
+                        expires: DateTime.Now.AddMinutes(30),
+                        signingCredentials: creds);
+
+                    return Ok(new
+                    {
+                        token = new JwtSecurityTokenHandler().WriteToken(token)
+                    });
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(new { mensagem = "Erro ao cadastrar." + ex.Message });
+                }
             }
-            catch (Exception ex)
-            {
-                return BadRequest(new { mensagem = "Erro ao cadastrar." + ex.Message });
-            }
-        }
         
         [HttpPost]
         public IActionResult Cadastrar (Usuarios usuarios)

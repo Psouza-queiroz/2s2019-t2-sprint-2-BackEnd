@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Senai.AutoPecas.WebApi.Domains;
 using Senai.AutoPecas.WebApi.Interface;
 using Senai.AutoPecas.WebApi.Repositories;
@@ -18,6 +19,29 @@ namespace Senai.AutoPecas.WebApi.Controller
     [ApiController]
     public class UsuariosController : ControllerBase
     {
+        private IUsuarioRepository UsuarioRepository { get; set; }
 
+        public UsuariosController()
+        {
+            UsuarioRepository = new UsuarioRepository();
+        }
+
+        [HttpGet]
+        public IActionResult Listar()
+        {
+            return Ok(UsuarioRepository.Listar());
+        }
+       [HttpPost]
+        public IActionResult Cadastrar(Usuarios usuarios)
+        {
+            UsuarioRepository.Cadastrar(usuarios);
+            return Ok();
+        }
+        [HttpDelete("{id}")]
+        public IActionResult Deletar(int id)
+        {
+            UsuarioRepository.Deletar(id);
+            return Ok();
+        }
     }
-}
+} 

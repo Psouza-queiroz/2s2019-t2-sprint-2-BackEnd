@@ -11,12 +11,31 @@ namespace Senai.AutoPecas.WebApi.Repositories
     {
         public void Cadastrar(Fornecedores fornecedores)
         {
-            
+            using (AutoPecasContext ctx = new AutoPecasContext())
+            {
+                ctx.Fornecedores.Add(fornecedores);
+                ctx.SaveChanges();
+            }       
+        }
+
+        public void deletar(int id)
+        {
+            using (AutoPecasContext ctx = new AutoPecasContext())
+            {
+                Fornecedores fornecedores = ctx.Fornecedores.Find(id);
+                ctx.Remove(fornecedores);
+                ctx.SaveChanges();
+
+            }
         }
 
         public List<Fornecedores> Listar()
         {
-            throw new NotImplementedException();
+            using (AutoPecasContext ctx = new AutoPecasContext())
+            {
+                 return ctx.Fornecedores.ToList();
+            }
+
         }
     }
 }

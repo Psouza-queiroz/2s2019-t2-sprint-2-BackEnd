@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace Senai.AutoPecas.WebApi.Interface
 {
-     public interface IUsuariosRepository
+     public interface IUsuarioRepository
     {
         Usuarios Login(LoginViewModel login);
-
+        void Cadastrar(Usuarios usuario);
+        List<Usuarios> Listar();
+        void Deletar(int id);
     }
 }
