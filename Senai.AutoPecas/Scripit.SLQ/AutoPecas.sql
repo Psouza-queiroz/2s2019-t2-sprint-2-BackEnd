@@ -29,4 +29,7 @@ idPeca int primary key identity
 ,idFornecedor int foreign key references Fornecedores (idFornecedor)
 );
 
+select * from Usuarios
+
+alter table Usuarios add Permissao VarChar(255) 
 --- Peças - código da peça (que o fornecedor define), descricao, peso, preço de custo, preço de venda e somente um fornecedor vinculado;
