@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Senai.AutoPecas.WebApi.Domains;
@@ -20,6 +21,8 @@ namespace Senai.AutoPecas.WebApi.Controller
         {
             FornecedorRepository = new FornecedorRepository();
         }
+
+        [Authorize(Roles = "Fornecedor")]
         [HttpPost]
         public IActionResult Cadastrar(Fornecedores fornecedores)
         {
@@ -27,13 +30,16 @@ namespace Senai.AutoPecas.WebApi.Controller
             return Ok();
 
         }
-        
-        
+
+
+        [Authorize(Roles = "Fornecedor")]
         [HttpGet]
         public IActionResult Listar ()
         {
             return Ok(FornecedorRepository.Listar());
         }
+
+        [Authorize(Roles = "Fornecedor")]
         [HttpDelete ("{id}")]
         public IActionResult Deletar (int id)
         {
